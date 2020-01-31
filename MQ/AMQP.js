@@ -19,16 +19,18 @@ class AMQP {
     this.Consumer(ch);
   }
 
-  async Send(queue, msg) {
+  async Send(queue, metadata, data) {
     /* If a request has been made, loop until these are set. */
     while (!this.send_ || this.consume_queue_ == '');
-
-    var data = {
-      reply: this.consume_queue_,
-      data: msg
+    
+    metadata.reply = this.consume_queue_; 
+    
+    var frame = {
+      metadata: metadata,
+      content: data
     };
 
-    this.send_.sendToQueue(queue, Buffer.from(JSON.stringify(data)));
+    this.send_.sendToQueue(queue, Buffer.from(JSON.stringify(frame)));
   }
 
   async Consumer(ch) {

@@ -10,9 +10,15 @@ class Controller {
     var that = this;
     this.logic_ = new model();
     this.fnc_ = {
+      /* Register handler */
       register: async function(frame) {
         console.log('Register controller fnc');
-        return that.logic_.Register(frame.data.registration_data);
+        return that.logic_.Register(frame.content);
+			},
+      /* Login handler */
+      login: async function(frame) {
+        console.log('Register controller fnc');
+        return that.logic_.Login(frame.content);
 			}	
 		}
    /*
@@ -30,19 +36,28 @@ class Controller {
   Process(recv_frame) {
     var that = this;
     console.log('Auth (Controller MQ)');
-    this.fnc_[recv_frame.data.call](recv_frame).then(function(result) {
-      var snd_frame = {
-        status: result.status,
-        result: result.result,
+    console.log(recv_frame);
+    
+    /* Metadata */
+    const fnc = recv_frame.metadata.call;
+    const call_id = recv_frame.metadata.call_id;
+    const reply_queue = recv_frame.metadata.reply;
+    
+    this.fnc_[fnc](recv_frame).then(function(result) {
+      var metadata = {
         /* Call id */
-        call_id: recv_frame.data.call_id
+        call_id: call_id 
       };
 
-      that.mq_.Send(recv_frame.reply, snd_frame);
+      var content = {
+        status: result.status,
+        result: result.result
+      }
+
+      that.mq_.Send(reply_queue, metadata, content);
     }).catch(e => {
       console.log(e); 
     });
-
   }
 }
 
