@@ -46,7 +46,9 @@ class Model {
     } else {
       console.log('Login Success');
       ret.status = true;
+      ret.result = result;
     }
+    return ret;
   }
 }
 module.exports = Model
