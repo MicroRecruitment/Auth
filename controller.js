@@ -17,9 +17,13 @@ class Controller {
 			},
       /* Login handler */
       login: async function(frame) {
-        console.log('Register controller fnc');
+        console.log('Login controller fnc');
         return that.logic_.Login(frame.content);
-			}	
+			},
+      user_exists: async function(frame) {
+        console.log('User exists controller fnc');
+        return that.logic_.UserExists(frame.content);
+      }
 		}
    /*
     * Create new amqp connection with randomly generated
