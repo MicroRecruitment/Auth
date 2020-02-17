@@ -12,17 +12,15 @@ class Controller {
     this.fnc_ = {
       /* Register handler */
       register: async function(frame) {
-        console.log('Register controller fnc');
         return that.logic_.Register(frame.content);
 			},
       /* Login handler */
       login: async function(frame) {
-        console.log('Login controller fnc');
         return that.logic_.Login(frame.content);
 			},
-      user_exists: async function(frame) {
-        console.log('User exists controller fnc');
-        return that.logic_.UserExists(frame.content);
+      /* Get user handler */
+      get_user: async function(frame) {
+        return that.logic_.GetUser(frame.content);
       }
 		}
    /*
@@ -39,9 +37,7 @@ class Controller {
 	*/
   Process(recv_frame) {
     var that = this;
-    console.log('Auth (Controller MQ)');
-    console.log(recv_frame);
-    
+    console.log('API Gateway Sent:', recv_frame);
     /* Metadata */
     const fnc = recv_frame.metadata.call;
     const call_id = recv_frame.metadata.call_id;

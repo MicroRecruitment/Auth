@@ -3,7 +3,7 @@ const URL = 'DATABASE=BLUDB;HOSTNAME=dashdb-txn-sbox-yp-lon02-01.services.eu-gb.
 
 const INSERT = 'INSERT INTO person (ssn, name, surname, username, password, role_id, email) VALUES (?, ?, ?, ?, ?, ?, ?)';
 const GET_USER_PASS = 'SELECT * FROM person WHERE username = ? AND password = ?';
-const GET_USER = 'SELECT username FROM person WHERE username = ?';
+const GET_USER = 'SELECT username, role_id FROM person WHERE username = ?';
 
 class Database {
   constructor() {

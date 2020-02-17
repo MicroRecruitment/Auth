@@ -9,8 +9,6 @@ class ReturnObj {
 
 class Model {
   async Register(registration_data) {
-    console.log('Auth (Model)');
-    console.log(registration_data);
 
     let db_data = {
       name: registration_data.name,
@@ -25,11 +23,7 @@ class Model {
     
     let ret = new ReturnObj(false, []);
 
-    if ('error' in result) {
-      console.log('--- DB Failed ---');
-      console.log(result);
-    } else {
-      console.log('DB Success');
+    if ('error' in result) {} else {
       ret.status = true;
       ret.result = result;
     }
@@ -45,12 +39,11 @@ class Model {
     } else {
       ret.status = true;
     }
-    console.log(result[0]);
     ret.result = result[0];
     return ret;
   }
   
-  async UserExists(username) {
+  async GetUser(username) {
     let result = await db.GetUser(username);
     let ret = new ReturnObj(false, []);
 
@@ -59,7 +52,7 @@ class Model {
     } else {
       ret.status = true;
     }
-    console.log(result[0]);
+    
     ret.result = result[0];
     return ret;
   }
