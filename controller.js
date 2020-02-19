@@ -57,7 +57,11 @@ class Controller {
     const fnc = recv_frame.metadata.call;
     const call_id = recv_frame.metadata.call_id;
     const reply_queue = recv_frame.metadata.reply;
-    
+
+    if (!this.fnc_[fnc]) {
+      console.log("Error: Cannot handle function \"" + fnc + "\"");
+      return;
+    }
     this.fnc_[fnc](recv_frame).then(function(result) {
       var metadata = {
         /* Call id */
