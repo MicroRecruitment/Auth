@@ -40,7 +40,6 @@ class Model {
       ret.status = true;
       ret.result = result;
     }
-    
     return ret;
   }
 }
