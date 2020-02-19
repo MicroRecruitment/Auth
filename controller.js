@@ -10,15 +10,30 @@ class Controller {
     var that = this;
     this.logic_ = new model();
     this.fnc_ = {
-      /* Register handler */
+      /*
+       * INPUT
+       * frame.ssn
+       * frame.name
+       * frame.surname
+       * frame.email
+       * frame.username
+       * frame.password
+       */
       register: async function(frame) {
         return that.logic_.Register(frame.content);
 			},
-      /* Login handler */
+      /*
+       * INPUT
+       * frame.username - username of user to get
+       * frame.password - password of user to get
+       */
       login: async function(frame) {
         return that.logic_.Login(frame.content);
 			},
-      /* Get user handler */
+      /*
+       * INPUT
+       * frame.username - username of user to get
+       */
       get_user: async function(frame) {
         return that.logic_.GetUser(frame.content);
       }
