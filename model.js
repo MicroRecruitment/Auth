@@ -38,7 +38,7 @@ class Model {
       ret.result = null;
     } else {
       ret.status = true;
-      ret.result = result;
+      ret.result = result[0];
     }
     return ret;
   }
