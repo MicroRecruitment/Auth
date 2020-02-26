@@ -29,7 +29,7 @@ class Model {
     result.result = result.result[0];
     return result;
   }
-  
+
   async GetUser(username) {
     let result = await db.GetUser(username);
     let ret = new Result(false, []);
@@ -43,4 +43,4 @@ class Model {
     return ret;
   }
 }
-module.exports = Model
+module.exports = Model;

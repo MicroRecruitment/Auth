@@ -5,13 +5,15 @@
   "dependencies": {
     "amqplib": "^0.5.5",
     "express": "^4.17.1",
+    "ibm_db": "*",
+    "prettier": "^1.19.1",
     "socket.io": "^2.3.0",
-    "winston": "^3.2.1",
-    "ibm_db": "*"
+    "winston": "^3.2.1"
   },
   "devDependencies": {},
   "scripts": {
     "start": "node app.js",
+    "format": "prettier --write *",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

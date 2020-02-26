@@ -13,8 +13,6 @@ const PORT = Math.round(Math.random() * 40000);
 app.use(express.static('./public'));
 var controller = new ctrl();
 
-srv.listen(PORT, function(){
-	console.log('Server started on *:' + PORT);
+srv.listen(PORT, function() {
+  console.log('Server started on *:' + PORT);
 });
-
-

@@ -9,28 +9,35 @@ class AMQP {
     }
     this.cb_ = processor;
     
-    var open = amqp.connect(HOST);
-    open.then(this.Setup.bind(this));
+    this.ready_ = new Promise(function(resolve, reject) {
+      this.open = amqp.connect(HOST);
+      this.open.then(this.Setup.bind(this))
+               .then(() => resolve(true))
+               .catch(err => {
+                 console.error('Could not connect to RabbitMQ');
+                 console.error(err);
+                 process.exit();
+               });
+    }.bind(this)); 
   }
 
   async Setup(conn) {
-    this.send_ = await conn.createChannel();
-    var ch = await conn.createChannel();
+    let ch = await conn.createChannel();
     this.Consumer(ch);
+    this.send_ = await conn.createChannel();
   }
 
   async Send(queue, metadata, data) {
     /* If a request has been made, loop until these are set. */
-    while (!this.send_ || this.consume_queue_ == '');
-    
+    await this.ready_;
     metadata.reply = this.consume_queue_; 
     
     var frame = {
       metadata: metadata,
       content: data
     };
-
     this.send_.sendToQueue(queue, Buffer.from(JSON.stringify(frame)));
+    return true;
   }
 
   async Consumer(ch) {
@@ -42,7 +49,11 @@ class AMQP {
       ch.consume(q.queue, _process, {
         noAck: false
       });
-    }).bind(this));
+    }).bind(this)).catch(err => {
+      console.error('Could not create Consumer Queue');
+      console.error(err);
+      process.exit();
+    });
     
     var that = this;
     function _process(msg) {
