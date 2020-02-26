@@ -17,12 +17,26 @@ class Model {
     }
     return ret;
   }
+  /*
+	* Register user.
+  * @queue: auth_queue
+	* @author: Linus Berg
+	* @param {obj} Registration data.
+	* @return {obj} Queue Reply Status.
+	*/
   async Register(registration_data) {
     registration_data.role_id = 0;
     let result = await db.AddUser(registration_data);
     return await this.ProcessResult(result);
   }
 
+  /*
+	* Authenticate user.
+  * @queue: auth_queue
+	* @author: Linus Berg
+	* @param {obj} Login data.
+	* @return {obj} Queue Reply Status.
+	*/
   async Login(login_data) {
     let result = await db.GetUserWithPassword(login_data);
     result = await this.ProcessResult(result);
@@ -30,6 +44,13 @@ class Model {
     return result;
   }
 
+  /*
+	* Get user by username.
+  * @queue: auth_queue
+	* @author: Linus Berg
+	* @param {string} Username.
+	* @return {obj} Queue Reply Status.
+	*/
   async GetUser(username) {
     let result = await db.GetUser(username);
     let ret = new Result(false, []);
