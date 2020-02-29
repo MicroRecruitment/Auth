@@ -6,7 +6,7 @@ const INSERT =
   'INSERT INTO person (ssn, name, surname, username, password, role_id, email) VALUES (?, ?, ?, ?, ?, ?, ?)';
 const GET_USER_PASS =
   'SELECT * FROM person WHERE username = ? AND password = ?';
-const GET_USER = 'SELECT username, role_id FROM person WHERE username = ?';
+const GET_USER = 'SELECT username, person_id, role_id FROM person WHERE username = ?';
 
 class Database {
   constructor() {

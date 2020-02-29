@@ -61,6 +61,7 @@ class Model {
       ret.status = true;
       ret.result = result[0];
     }
+    console.log(ret.result);
     return ret;
   }
 }
