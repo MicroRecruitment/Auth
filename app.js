@@ -1,12 +1,12 @@
 'use strict';
-const io = require('socket.io');
+const express = require('express');
 const http = require('http');
-
 const ctrl = require('./controller.js');
 
-var srv = http.createServer();
-var socket = io(srv);
-const PORT = Math.round(Math.random() * 40000);
+/* Routes */
+const app = express();
+const srv = http.createServer(app);
+const PORT = 8080;
 
 var controller = new ctrl();
 
