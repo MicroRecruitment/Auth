@@ -10,7 +10,7 @@ You start it by running npm start.
 ## Modifying the code
 The code consists of multiple parts, the application is split up into different parts using MVC structure.
 | Folder/File        | Description          |
-| ------------- |:-------------:|
+| ------------- |:------------- |
 | app.js | This simply connects all the pieces together, barely anything should be implemented here. |
 | MQ/ | This folder contains all code for the message queue connection. |
 | controller.js | Controller for managing the queue message requests. |
